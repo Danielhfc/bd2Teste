@@ -6,7 +6,7 @@ from mapeamento import *
 class DAO():
     # Conexão com o banco
     def getSession():
-        engine = create_engine("postgresql+psycopg2://postgres:1234@localhost:5432/ticketnaster")
+        engine = create_engine("postgresql+psycopg2://postgres:1234@localhost:5432/ticketmaster")
         Session = sessionmaker(bind=engine)
         session = Session()
         return session

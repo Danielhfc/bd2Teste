@@ -18,5 +18,5 @@ class View():
         if (status == 1):
             print("Carga realizada com sucesso!")
         else:
-            print(status)
+            print("teste"+status)
 

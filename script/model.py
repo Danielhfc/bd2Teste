@@ -68,3 +68,59 @@ class AcessDB:
         except:
             return 0
     
+class API:
+    def __init__(self):
+        self.manipulateDB = AcessDB
+
+    def getClassificacoes(self):
+        try:
+            print('Fazendo a carga das classificações no banco...')
+            response = requests.get("https://app.ticketmaster.com/discovery/v2/classifications.json?apikey=HvPlPVQ2sP3kTGbG19RGHGl9sQFvUNZX&page=0")
+            classificacao_json = response.json()
+            
+            if len(classificacao_json) == 0:
+                raise Exception('Json vazio')
+
+            # Acessando a lista de classificações dentro do campo "_embedded"
+            classifications = classificacao_json["_embedded"]["classifications"]
+            
+            for clas in classifications:
+                # Verificando se 'segment' e 'type' estão presentes em 'clas'
+                if 'segment' in clas:
+                    # Acessando o segment id e imprimindo para verificar
+                    segment_id = clas['segment']['id']
+                    print(f"Segment ID: {segment_id}")
+                    
+                    clasObject = Classificacao(id=str(segment_id))
+                    
+                    # Verifica se o objeto já existe no banco
+                    check = self.manipulateDB.selectClassificacao(clasObject.id)
+                    id = str(clasObject.id)
+
+                    # Se não existir, insere no banco
+                    if not check:
+                        self.manipulateDB.insert(clasObject)
+                        print('Classificacao inserida no banco. ID: ' + id)
+                    else:
+                        print('Classificacao já existe no banco. ID: ' + id)
+                else:
+                    # Acessando o segment id e imprimindo para verificar
+                    segment_id = clas['type']['id']
+                    print(f"Segment ID: {segment_id}")
+                    
+                    clasObject = Classificacao(id=str(segment_id))
+                    
+                    # Verifica se o objeto já existe no banco
+                    check = self.manipulateDB.selectClassificacao(clasObject.id)
+                    id = str(clasObject.id)
+
+                    # Se não existir, insere no banco
+                    if not check:
+                        self.manipulateDB.insert(clasObject)
+                        print('Classificacao inserida no banco. ID: ' + id)
+                    else:
+                        print('Classificacao já existe no banco. ID: ' + id)
+            return 1
+
+        except Exception as e:
+            return '\nERRO: ' + repr(e)

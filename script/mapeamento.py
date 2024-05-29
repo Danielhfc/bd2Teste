@@ -11,14 +11,9 @@ class Classificacao(Base):
     __tablename__ = 'classificacao'
 
     id = Column(Text, primary_key=True)
-    nome = Column(Text, nullable=False)
-    genero = Column(Text, nullable=False)
-    generoid = Column(Text, nullable=False)
-    subgenero = Column(Text)
-    subgeneroid = Column(Text)
 
 
-class Locai(Base):
+class Locais(Base):
     __tablename__ = 'locais'
 
     id = Column(Text, primary_key=True)
@@ -52,7 +47,7 @@ class Evento(Base):
     local = relationship('Locais')
 
 
-class Atraco(Base):
+class Atracao(Base):
     __tablename__ = 'atracoes'
 
     id = Column(Text, primary_key=True)

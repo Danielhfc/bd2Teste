@@ -1,12 +1,10 @@
-sqlacodegen --outfile mapeamento.py postgresql+psycopg2://postgres:1234@localhost:5432/ticketmaster
+--sqlacodegen --outfile mapeamento.py postgresql+psycopg2://postgres:1234@localhost:5432/ticketmaster
 -- TABELAS --
 CREATE TABLE classificacao (
 	id text PRIMARY KEY NOT NULL,
 	nome text NOT NULL,
 	genero text NOT NULL,
-	generoid text NOT NULL,
-	subGenero text,
-	subGeneroid text
+	generoid text NOT NULL
 )
 
 CREATE TABLE locais (
