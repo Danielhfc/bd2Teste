@@ -11,16 +11,16 @@ class Controller:
 
         while opcao != 5:
             if opcao == 1:
-                result = self.API.getClassificacoes()
+                result = self.API.getClassifications()
                 self.view.imprimeStatus(result)
             if opcao == 2:
-                result = self.API.getLocais()
+                result = self.API.getVenues()
                 self.view.imprimeStatus(result)
             if opcao == 3:
-                result = self.API.getEventos()
+                result = self.API.getEvents()
                 self.view.imprimeStatus(result)
             if opcao == 4:
-                result = self.API.getAtracoes()
+                result = self.API.getAttractions()
                 self.view.imprimeStatus(result)
                 
             opcao = self.view.menu()

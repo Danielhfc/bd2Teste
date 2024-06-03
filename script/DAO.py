@@ -16,27 +16,33 @@ class DAO():
         session.add(obj)
 
 # Funções para buscar um registro do banco
-class DAOClassificacoes():
+class DAOClassifications():
     
     def select(session, id):
-        clas = session.query(Classificacao).filter(Classificacao.id == id).first()
+        clas = session.query(Classification).filter(Classification.id == id).first()
         return clas
 
-class DAOLocais():
+class DAOVenues():
     
     def select(session, id):
-        loc = session.query(Locais).filter(Locais.id == id).first()
+        loc = session.query(Venue).filter(Venue.id == id).first()
         return loc
 
-class DAOEventos():
+class DAOEvents():
     
     def select(session, id):
-        event = session.query(Evento).filter(Evento.id == id).first()
+        event = session.query(Event).filter(Event.id == id).first()
         return event
 
-class DAOAtracoes():
+class DAOAttractions():
 
     def select(session, id):
-        atrac = session.query(Atracao).filter(Atracao.id == id).first()
-        return atrac
+        attraction = session.query(Attraction).filter(Attraction.id == id).first()
+        return attraction
+    
+class DAOEventAttraction():
+
+    def select(session, id):
+        eventAttraction = session.query(eventAttraction).filter(eventAttraction.id == id).first()
+        return eventAttraction
 

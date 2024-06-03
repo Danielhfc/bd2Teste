@@ -1,49 +1,54 @@
 --sqlacodegen --outfile mapeamento.py postgresql+psycopg2://postgres:1234@localhost:5432/ticketmaster
 -- TABELAS --
-CREATE TABLE classificacao (
-	id text PRIMARY KEY NOT NULL,
-	nome text NOT NULL,
-	genero text NOT NULL,
-	generoid text NOT NULL
+CREATE TABLE classifications (
+	genreId text PRIMARY KEY NOT NULL,
+	genre text NOT NULL,
+	segmentId text NOT NULL,
+	segmentName text NOT NULL	
 )
 
-CREATE TABLE locais (
+CREATE TABLE venues (
 	id text PRIMARY KEY NOT NULL,
-	nome text NOT NULL,
-	codigoURL text,
-	imagens text NOT NULL,
-	codigoPostal text NOT NULL,
+	name text NOT NULL,
+	aliases text,
+	url text,
+	images text,
+	postalCode text NOT NULL,
 	timezone text NOT NULL,
-	cidade text NOT NULL,
-	estado text NOT NULL,
-	pais text NOT NULL,
-	proximosEventos text NOT NULL
+	city text NOT NULL,
+	state text NOT NULL,
+	country text NOT NULL,
+	address text,
+	markets text
 )
 
-CREATE TABLE eventos (
+CREATE TABLE attractions (
 	id text PRIMARY KEY NOT NULL,
-	nome text NOT NULL,
-	codigoURL text,
-	imagens text NOT NULL,
-	inicioVenda date NOT NULL,
-	fimVenda date NOT NULL,
-	inicioEvento date NOT NULL,
-	fimEvento date NOT NULL,
-	preco float NOT NULL,
-	local_id text,
-    classificacao_id text,
-	CONSTRAINT fk_local FOREIGN KEY (local_id) REFERENCES locais(id),
-    CONSTRAINT fk_classificacao FOREIGN KEY (classificacao_id) REFERENCES classificacao(id)
+	name text NOT NULL,
+	url text,
+	images text NOT NULL,
+	classifications_id text,
+    CONSTRAINT fk_classifications FOREIGN KEY (classifications_id) REFERENCES classifications(genreId)
 )
 
-CREATE TABLE atracoes (
+CREATE TABLE events (
 	id text PRIMARY KEY NOT NULL,
-	nome text NOT NULL,
-	codigoURL text,
-	imagens text NOT NULL,
-	proximosEventos text NOT NULL,
-	classificacao_id text,
-    evento_id text,
-    CONSTRAINT fk_classificacao FOREIGN KEY (classificacao_id) REFERENCES classificacao(id),
-    CONSTRAINT fk_evento FOREIGN KEY (evento_id) REFERENCES eventos(id)
+	name text NOT NULL,
+	url text,
+	images text,
+	StartDateSale date,
+	EndDateSale date,
+	StartDateEvent date,
+	timezone text,
+	priceMin float,
+	priceMax float,
+	promoter text,
+	venue_id text,
+    classifications_id text,
+	CONSTRAINT fk_venue FOREIGN KEY (venue_id) REFERENCES Venues(id),
+    CONSTRAINT fk_classifications FOREIGN KEY (classifications_id) REFERENCES classifications(genreId)
 )
+
+SELECT * FROM Venues;
+SELECT * FROM Events;
+SELECT * FROM Classifications;
